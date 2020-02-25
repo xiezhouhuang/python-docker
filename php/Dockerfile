@@ -1,8 +1,6 @@
 FROM daocloud.io/php:7.2-fpm-alpine
 
 
-RUN cd /var/www/html &&  wget http://static.kodcloud.com/update/download/kodexplorer4.25.zip && unzip kodexplorer4.40.zip && chmod -Rf 777 ./*
-
 # 修改镜像源
 RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories
 
