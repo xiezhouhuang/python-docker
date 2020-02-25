@@ -29,13 +29,6 @@ RUN apk update && apk add --no-cache --virtual .build-deps \
     && npm config set registry https://registry.npm.taobao.org \
     && pecl install imagick \
     && pecl install mcrypt-1.0.1 \
-    && mkdir -p /usr/src/swoole \
-    && tar -xzf /tmp/swoole-4.2.3.tgz -C /usr/src/swoole --strip-components=1 \
-    && /usr/local/bin/phpize \
-    && ./configure \
-    && make \
-    && make install \
-    && docker-php-ext-enable swoole \
     && docker-php-ext-enable mcrypt \
     && docker-php-ext-enable imagick \
     && docker-php-ext-install \
