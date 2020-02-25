@@ -58,7 +58,7 @@ services:
       - "9000"
     volumes:
       - ./nginx/web:/var/www/html
-      - "./php:/usr/local/etc/php"
+      - "./php/conf.d:/usr/local/etc/php/conf.d"
     depends_on:
       - mysql
       - redis

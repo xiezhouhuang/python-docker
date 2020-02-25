@@ -2,7 +2,6 @@ FROM daocloud.io/php:7.2-fpm-alpine
 
 # 修改镜像源
 RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories
-
 # 安装依赖,核心扩展,pecl扩展,git,composer,npm工具
 RUN apk update && apk add --no-cache --virtual .build-deps \
         $PHPIZE_DEPS \
@@ -12,7 +11,7 @@ RUN apk update && apk add --no-cache --virtual .build-deps \
         libxml2-dev \
         postgresql-dev \
         sqlite-dev \
-    libmcrypt-dev \
+        libmcrypt-dev \
         freetype-dev \
         libjpeg-turbo-dev \
         libpng-dev \
@@ -34,6 +33,7 @@ RUN apk update && apk add --no-cache --virtual .build-deps \
         curl \
         mbstring \
         pdo \
+        mysqli \
         pdo_mysql \
         pdo_pgsql \
         pdo_sqlite \
@@ -46,7 +46,11 @@ RUN apk update && apk add --no-cache --virtual .build-deps \
     && docker-php-ext-install -j"$(getconf _NPROCESSORS_ONLN)" gd \
     && pecl install -o -f redis \
     && rm -rf /tmp/pear \
-    && docker-php-ext-enable redis
+    && docker-php-ext-enable redis 
+
+
+
+
 
 # 安装composer并允许root用户运行
 ENV COMPOSER_ALLOW_SUPERUSER=1
