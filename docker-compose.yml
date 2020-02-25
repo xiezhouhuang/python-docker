@@ -24,34 +24,35 @@ services:
       - "./mysql/conf:/etc/mysql/conf.d"
       - "./mysql/init:/docker-entrypoint-initdb.d/"
 
-  isescs:
-    container_name: isescs
-    build: /root/ISESCS-Python/isescs
-    restart: always
-    expose:
-      - "8000"
-    volumes:
-      - /root/ISESCS-Python/isescs:/usr/src/app
-    command: gunicorn  -c /usr/src/app/gunconfig.py  manage:app
-    depends_on:
-      - mysql
-      - redis
-  ky:
-    container_name: ky
-    build: /root/KY_SSEMSystem-Python/ky
-    restart: always
-    expose:
-      - "8000"
-    volumes:
-      - /root/KY_SSEMSystem-Python/ky:/usr/src/app
-    command: gunicorn  -c /usr/src/app/gunconfig.py  manage:app
-    depends_on:
-      - mysql
-      - redis
+  # PYTHON 项目
+  # isescs:
+  #   container_name: isescs
+  #   build: /root/ISESCS-Python/isescs
+  #   restart: always
+  #   expose:
+  #     - "8000"
+  #   volumes:
+  #     - /root/ISESCS-Python/isescs:/usr/src/app
+  #   command: gunicorn  -c /usr/src/app/gunconfig.py  manage:app
+  #   depends_on:
+  #     - mysql
+  #     - redis
+  # ky:
+  #   container_name: ky
+  #   build: /root/KY_SSEMSystem-Python/ky
+  #   restart: always
+  #   expose:
+  #     - "8000"
+  #   volumes:
+  #     - /root/KY_SSEMSystem-Python/ky:/usr/src/app
+  #   command: gunicorn  -c /usr/src/app/gunconfig.py  manage:app
+  #   depends_on:
+  #     - mysql
+  #     - redis
 
-  kod:
-    container_name: kod
-    build: ./kod
+  php:
+    container_name: php
+    build: ./php
     restart: always
     expose:
       - "9000"
@@ -74,6 +75,6 @@ services:
     depends_on:
       - isescs
       - ky
-      - kod
+      - php
   
   
