@@ -4,7 +4,6 @@ services:
   redis:
     image: redis
     container_name: redis-master
-    restart: always
     ports:
       - "6379:6379"
     command: redis-server --port 6379 --requirepass 123456  --appendonly yes
@@ -12,7 +11,6 @@ services:
       - ./redis/data:/data
   mysql:
     container_name: mysql
-    restart: always
     environment:
       MYSQL_ROOT_PASSWORD: "123456"
       MYSQL_USER: 'isescs'
@@ -25,36 +23,31 @@ services:
       - "./mysql/conf:/etc/mysql/conf.d"
       - "./mysql/init:/docker-entrypoint-initdb.d/"
 
-  # PYTHON 项目
-  # isescs:
-  #   container_name: isescs
-  #   build: /root/ISESCS-Python/isescs
-  #   restart: always
-  #   expose:
-  #     - "8000"
-  #   volumes:
-  #     - /root/ISESCS-Python/isescs:/usr/src/app
-  #   command: gunicorn  -c /usr/src/app/gunconfig.py  manage:app
-  #   depends_on:
-  #     - mysql
-  #     - redis
-  # ky:
-  #   container_name: ky
-  #   build: /root/KY_SSEMSystem-Python/ky
-  #   restart: always
-  #   expose:
-  #     - "8000"
-  #   volumes:
-  #     - /root/KY_SSEMSystem-Python/ky:/usr/src/app
-  #   command: gunicorn  -c /usr/src/app/gunconfig.py  manage:app
-  #   depends_on:
-  #     - mysql
-  #     - redis
+  isescs:
+    container_name: isescs
+    build: /root/ISESCS-Python/isescs
+    expose:
+      - "8000"
+    volumes:
+      - /root/ISESCS-Python/isescs:/usr/src/app
+    depends_on:
+      - mysql
+      - redis
+
+  ky:
+    container_name: ky
+    build: /root/KY_SSEMSystem-Python/ky
+    expose:
+      - "8000"
+    volumes:
+      - /root/KY_SSEMSystem-Python/ky:/usr/src/app
+    depends_on:
+      - mysql
+      - redis
 
   php:
     container_name: php
     build: ./php
-    restart: always
     expose:
       - "9000"
     volumes:
@@ -67,7 +60,6 @@ services:
   nginx:
     container_name: nginx
     build: ./nginx
-    restart: always
     volumes:
       - ./nginx/conf.d:/etc/nginx/conf.d
       - ./nginx/web:/home
@@ -75,8 +67,8 @@ services:
       - "80:80"
       - "43:433"
     depends_on:
-      - isescs
       - ky
+      - isescs
       - php
   
   
