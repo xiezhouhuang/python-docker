@@ -67,8 +67,8 @@ services:
       - "80:80"
       - "43:433"
     depends_on:
-      - ky
+      #- ky
       # - isescs
-      # - php
+      - php
   
   
