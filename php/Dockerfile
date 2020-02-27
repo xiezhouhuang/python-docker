@@ -42,7 +42,7 @@ RUN apk update && apk add --no-cache --virtual .build-deps \
         xml \
         zip \
     && docker-php-ext-install -j"$(getconf _NPROCESSORS_ONLN)" iconv \
-    && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
+    && docker-php-ext-configure gd --with-webp-dir=/usr/include/webp --with-jpeg-dir=/usr/include --with-png-dir=/usr/include --with-freetype-dir=/usr/include/freetype2 \
     && docker-php-ext-install -j"$(getconf _NPROCESSORS_ONLN)" gd \
     && pecl install -o -f redis \
     && rm -rf /tmp/pear \
