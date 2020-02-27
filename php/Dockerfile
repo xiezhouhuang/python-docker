@@ -13,6 +13,7 @@ RUN apk update && apk add --no-cache --virtual .build-deps \
         sqlite-dev \
         libmcrypt-dev \
         freetype-dev \
+        libwebp-dev \
         libjpeg-turbo-dev \
         libpng-dev \
     && apk add --no-cache \
