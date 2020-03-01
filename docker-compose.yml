@@ -6,9 +6,10 @@ services:
     container_name: redis-master
     ports:
       - "6379:6379"
-    command: redis-server --port 6379 --requirepass 123456  --appendonly yes
+    command: redis-server /etc/redis/redis.conf --port 6379 --requirepass 123456  --appendonly yes
     volumes:
       - ./redis/data:/data
+      - ./redis/conf/redis.conf:/etc/redis/redis.conf
   mysql:
     container_name: mysql
     environment:
