@@ -24,27 +24,27 @@ services:
       - "./mysql/conf:/etc/mysql/conf.d"
       - "./mysql/init:/docker-entrypoint-initdb.d/"
 
-  isescs:
-    container_name: isescs
-    build: /root/ISESCS-Python/isescs
-    expose:
-      - "8000"
-    volumes:
-      - /root/ISESCS-Python/isescs:/usr/src/app
-    depends_on:
-      - mysql
-      - redis
+  # isescs:
+  #   container_name: isescs
+  #   build: /root/ISESCS-Python/isescs
+  #   expose:
+  #     - "8000"
+  #   volumes:
+  #     - /root/ISESCS-Python/isescs:/usr/src/app
+  #   depends_on:
+  #     - mysql
+  #     - redis
 
-  ky:
-    container_name: ky
-    build: /root/KY_SSEMSystem-Python/ky
-    expose:
-      - "8000"
-    volumes:
-      - /root/KY_SSEMSystem-Python/ky:/usr/src/app
-    depends_on:
-      - mysql
-      - redis
+  # ky:
+  #   container_name: ky
+  #   build: /root/KY_SSEMSystem-Python/ky
+  #   expose:
+  #     - "8000"
+  #   volumes:
+  #     - /root/KY_SSEMSystem-Python/ky:/usr/src/app
+  #   depends_on:
+  #     - mysql
+  #     - redis
 
   php:
     container_name: php
@@ -66,10 +66,10 @@ services:
       - ./nginx/web:/home
     ports:
       - "80:80"
-      - "43:433"
+      - "443:443"
     depends_on:
-      - ky
-      - isescs
+      # - ky
+      # - isescs
       - php
   
   
